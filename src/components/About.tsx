@@ -85,14 +85,14 @@ export function About() {
                   <span className="tracking-tight">&#123; about.me &#125;</span>
                 </div>
 
-                {/* Portrait illustration - unclipped and properly positioned */}
-                <div className="relative aspect-[448/452] w-full overflow-hidden rounded-xl bg-surface/30 flex items-center justify-center">
+                {/* Portrait illustration - unclipped with internal breathing buffer */}
+                <div className="relative aspect-[448/452] w-full overflow-hidden rounded-xl bg-surface/30 p-2.5 sm:p-3 flex items-center justify-center">
                   <Image
                     src="/images/about-portrait.png"
                     alt="Developer portrait illustration"
                     width={448}
                     height={452}
-                    className="h-full w-full object-contain object-top"
+                    className="h-full w-full object-contain object-bottom"
                     priority
                   />
                 </div>
@@ -141,7 +141,7 @@ export function About() {
             </div>
 
             {/* Editorial Serif Headline - refined vertical height */}
-            <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-serif font-semibold tracking-tight text-foreground leading-[1.22] max-w-xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-serif font-semibold tracking-tight text-foreground leading-[1.22] max-w-xl">
               Building practical web solutions with clean code and a{" "}
               <span className="italic font-normal text-foreground">
                 user-first mindset.
@@ -218,9 +218,10 @@ export function About() {
           </div>
         </div>
 
-        {/* Lower Information Area: Development Focus & Primary Stack Band */}
-        <div className="mt-16 pt-8 border-t border-border/60">
-          <div className="rounded-2xl border border-border/70 bg-surface/50 p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xs">
+        {/* Unified Lower Information Area: Development Focus & Principles Triad */}
+        <div className="mt-16 rounded-2xl border border-border/70 bg-white shadow-2xs overflow-hidden">
+          {/* Top Focus & Primary Stack Band */}
+          <div className="bg-surface/40 p-6 sm:p-7 border-b border-border/60 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
                 Development Focus
@@ -246,34 +247,34 @@ export function About() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Development Principles: Connected Editorial Triad (01 Build, 02 Improve, 03 Grow) */}
-        <div className="mt-8 rounded-2xl border border-border/70 bg-white shadow-2xs overflow-hidden grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60">
-          {principles.map((item) => (
-            <div
-              key={item.index}
-              className="p-6 sm:p-7 hover:bg-surface/30 transition-colors flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-xs font-semibold text-secondary/70 tracking-wider">
-                    {item.index}
-                  </span>
-                  <div className="h-7 w-7 rounded-lg bg-surface/80 border border-border/60 flex items-center justify-center text-foreground">
-                    {item.icon}
+          {/* Connected Principles Triad (01 Build, 02 Improve, 03 Grow) */}
+          <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60">
+            {principles.map((item) => (
+              <div
+                key={item.index}
+                className="p-6 sm:p-7 hover:bg-surface/20 transition-colors flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-xs font-semibold text-secondary/70 tracking-wider">
+                      {item.index}
+                    </span>
+                    <div className="h-7 w-7 rounded-lg bg-surface/80 border border-border/60 flex items-center justify-center text-foreground">
+                      {item.icon}
+                    </div>
                   </div>
-                </div>
 
-                <h3 className="text-base font-bold text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-xs sm:text-sm text-secondary leading-relaxed">
-                  {item.description}
-                </p>
+                  <h3 className="text-base font-bold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm text-secondary leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

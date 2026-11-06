@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 
 interface NavItem {
@@ -116,22 +116,42 @@ const navItems: NavItem[] = [
 
 export function Navigation() {
   const [activeId, setActiveId] = useState<string>("hero");
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const lastScrollY = useRef<number>(0);
+  const isScrollingToRef = useRef<boolean>(false);
 
   const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY + 120;
-    if (window.scrollY < 100) {
-      setActiveId("hero");
-      return;
-    }
+    const currentScrollY = window.scrollY;
 
-    const sections = navItems.map((item) => document.getElementById(item.id));
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = sections[i];
-      if (section && section.offsetTop <= scrollPosition) {
-        setActiveId(navItems[i].id);
-        break;
+    // Detect active section
+    const scrollPosition = currentScrollY + 140;
+    if (currentScrollY < 100) {
+      setActiveId("hero");
+    } else {
+      const sections = navItems.map((item) => document.getElementById(item.id));
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveId(navItems[i].id);
+          break;
+        }
       }
     }
+
+    // Smart auto-hide on scroll-down to guarantee no content is obscured while reading
+    if (!isScrollingToRef.current) {
+      if (currentScrollY < 80) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling down -> gently slide away
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up -> reveal immediately
+        setIsVisible(true);
+      }
+    }
+
+    lastScrollY.current = currentScrollY;
   }, []);
 
   useEffect(() => {
@@ -142,11 +162,18 @@ export function Navigation() {
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setIsVisible(true);
+    isScrollingToRef.current = true;
+
     if (id === "hero") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       setActiveId("hero");
+      setTimeout(() => {
+        isScrollingToRef.current = false;
+      }, 700);
       return;
     }
+
     const el = document.getElementById(id);
     if (el) {
       const headerOffset = 110;
@@ -155,11 +182,21 @@ export function Navigation() {
         elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       setActiveId(id);
+      setTimeout(() => {
+        isScrollingToRef.current = false;
+      }, 700);
     }
   };
 
   return (
-    <header className="fixed top-4 sm:top-6 inset-x-0 z-50 flex justify-center px-3 pointer-events-none">
+    <header
+      className={[
+        "fixed top-4 sm:top-6 inset-x-0 z-50 flex justify-center px-3 pointer-events-none transition-all duration-300 ease-out",
+        isVisible
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-24 opacity-0 pointer-events-none",
+      ].join(" ")}
+    >
       <nav
         className="pointer-events-auto max-w-full overflow-x-auto no-scrollbar bg-white/95 backdrop-blur-md border border-border/80 shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-full p-1.5 flex items-center gap-1 sm:gap-1.5 transition-all"
         aria-label="Main navigation"
