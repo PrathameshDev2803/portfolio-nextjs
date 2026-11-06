@@ -3,34 +3,37 @@ export function Services() {
     {
       title: "Full Stack Development",
       description:
-        "End-to-end web applications using PHP, Laravel, JavaScript, React and Next.js.",
+        "End-to-end web applications combining robust backend APIs with responsive, reactive interfaces.",
     },
     {
-      title: "PHP & Laravel",
+      title: "PHP & Laravel Solutions",
       description:
-        "Server-side development with Laravel, Eloquent and the PHP ecosystem.",
+        "Custom server-side logic, relational database schemas, secure authentication, and administrative dashboards.",
     },
     {
-      title: "React & Next.js",
+      title: "Modern React & Next.js",
       description:
-        "Modern frontend interfaces with React, Next.js, TypeScript and Tailwind CSS.",
+        "High-performance client frontends, SSR/SSG rendering, fluid interactions, and mobile-first responsiveness.",
     },
     {
-      title: "Databases & APIs",
+      title: "API Design & Integration",
       description:
-        "Data modeling and APIs with MySQL, MongoDB, Node.js and Express.js.",
+        "Clean REST APIs, third-party webhook integrations, and efficient database architectures with MySQL and MongoDB.",
     },
   ];
 
   return (
-    <section id="services">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-4xl text-center lg:text-left mb-16">
-          <h2 className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
+    <section id="services" className="py-20 px-6 sm:px-8 lg:px-12 border-t border-border/60">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-2xl mb-12">
+          <span className="text-xs font-semibold tracking-widest text-secondary uppercase">
             Services
+          </span>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            What I Can Help You Build
           </h2>
-          <p className="mt-4 text-lg text-secondary leading-relaxed">
-            What I can help you build.
+          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+            Reliable engineering services tailored for startups, businesses, and digital products.
           </p>
         </div>
 
@@ -38,12 +41,16 @@ export function Services() {
           {services.map((service) => (
             <div
               key={service.title}
-              className="border border-border bg-surface rounded-xl p-6"
+              className="border border-border bg-white rounded-2xl p-6 sm:p-7 shadow-2xs flex flex-col justify-between"
             >
-              <h3 className="text-lg font-semibold text-foreground">{service.title}</h3>
-              <p className="mt-2 text-sm text-secondary leading-relaxed">
-                {service.description}
-              </p>
+              <div>
+                <h3 className="text-base font-bold text-foreground">
+                  {service.title}
+                </h3>
+                <p className="mt-2.5 text-sm text-secondary leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

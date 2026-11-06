@@ -1,133 +1,111 @@
 const projects = [
   {
     name: "JobScout.ai",
-    description: "Project details to be added.",
-    tech: ["PHP", "Laravel", "JavaScript"],
-    github: "#",
+    description:
+      "Intelligent job discovery and tracking application streamlining the recruitment lifecycle.",
+    tech: ["PHP", "Laravel", "MySQL", "JavaScript"],
+    github: "https://github.com/PrathameshDev2803",
     live: "#",
   },
   {
     name: "NoteStack",
-    description: "Project details to be added.",
-    tech: ["React", "Next.js", "TypeScript"],
-    github: "#",
+    description:
+      "Minimalist markdown notes app with real-time saving and organized tagging system.",
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/PrathameshDev2803",
     live: "#",
   },
   {
     name: "Expense Tracker",
-    description: "Project details to be added.",
-    tech: ["JavaScript", "Node.js", "MongoDB"],
-    github: "#",
+    description:
+      "Personal finance tracking tool with detailed monthly analytics and budget alerts.",
+    tech: ["Node.js", "Express", "MongoDB", "React"],
+    github: "https://github.com/PrathameshDev2803",
     live: "#",
   },
   {
     name: "Motionis.health",
-    description: "Project details to be added.",
+    description:
+      "Digital health platform interface focusing on accessibility and patient wellness journeys.",
     tech: ["React", "Next.js", "Tailwind CSS"],
-    github: "#",
+    github: "https://github.com/PrathameshDev2803",
     live: "#",
   },
 ];
 
 export function Projects() {
   return (
-    <section id="projects">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-4xl text-center lg:text-left mb-16">
-          <h2 className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
-            Featured projects
+    <section id="projects" className="py-20 px-6 sm:px-8 lg:px-12 border-t border-border/60">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-2xl mb-12">
+          <span className="text-xs font-semibold tracking-widest text-secondary uppercase">
+            Work
+          </span>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            Featured Projects
           </h2>
-          <p className="mt-4 text-lg text-secondary leading-relaxed">
-            Selected work to be added. Descriptions, screenshots and links are
-            placeholders pending verified project information.
+          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+            A selection of recent development projects demonstrating full-stack
+            architecture, modern frontends, and dependable APIs.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project) => (
             <article
               key={project.name}
-              className="group relative border border-border bg-surface rounded-xl p-6 hover:border-accent transition-colors"
+              className="group flex flex-col justify-between border border-border bg-white rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-foreground/40 transition-colors"
             >
-              <div
-                className={[
-                  "h-32 rounded-lg overflow-hidden mb-4",
-                  "bg-border flex items-center justify-center",
-                ].join(" ")}
-              >
-                <span className="text-xs font-mono text-secondary">
-                  Preview
-                </span>
-              </div>
-
-              <h3 className="text-xl font-semibold text-foreground group-hover:text-secondary transition-colors">
-                {project.name}
-              </h3>
-              <p className="mt-2 text-sm text-secondary leading-relaxed">
-                {project.description}
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="text-[10px] font-mono text-secondary uppercase tracking-wider"
-                  >
-                    {t}
+              <div>
+                <div className="h-40 rounded-xl overflow-hidden mb-6 bg-surface border border-border/60 flex items-center justify-center">
+                  <span className="text-xs font-mono uppercase tracking-wider text-secondary">
+                    {project.name} preview
                   </span>
-                ))}
+                </div>
+
+                <h3 className="text-xl font-bold text-foreground">
+                  {project.name}
+                </h3>
+                <p className="mt-2.5 text-sm text-secondary leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-surface px-2.5 py-1 text-xs font-medium text-foreground/80"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-3 pt-4 border-t border-border/50">
+              <div className="mt-8 pt-5 border-t border-border/60 flex items-center gap-4">
                 <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-medium text-secondary hover:text-foreground transition-colors"
-                  aria-label={`GitHub: ${project.name}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground hover:text-secondary transition-colors"
+                  aria-label={`GitHub repository for ${project.name}`}
                 >
-                  GitHub
+                  <span>Code</span>
                   <svg
-                    width="14"
-                    height="14"
+                    width="13"
+                    height="13"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="ml-1"
                     aria-hidden="true"
                   >
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8m0 0L9.6 7.9m-11 4H7m21-5h-2M7 3v18" />
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
                   </svg>
                 </a>
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium text-secondary hover:text-foreground transition-colors"
-                    aria-label={`Live: ${project.name}`}
-                  >
-                    Live
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="ml-1"
-                      aria-hidden="true"
-                    >
-                      <path d="M15 2H6c-2.8 0-5 2.2-5 5v12c0 2.8 2.2 5 5 5h9c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5z" />
-                      <polyline points="17 2 15 4 17 2" />
-                    </svg>
-                  </a>
-                )}
               </div>
             </article>
           ))}

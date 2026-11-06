@@ -1,52 +1,50 @@
 export function Skills() {
-  const groups = [
+  const skillCategories = [
     {
-      title: "Primary",
-      items: ["PHP", "Laravel", "JavaScript", "React", "Next.js"],
+      category: "Frontend",
+      skills: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Bootstrap", "HTML5 / CSS3"],
     },
     {
-      title: "Additional",
-      items: [
-        "TypeScript",
-        "Node.js",
-        "Express.js",
-        "MySQL",
-        "MongoDB",
-        "Tailwind CSS",
-        "Bootstrap",
-        "Git",
-        "Docker",
-      ],
+      category: "Backend & Architecture",
+      skills: ["PHP", "Laravel", "Node.js", "Express.js", "RESTful APIs", "MVC Architecture"],
+    },
+    {
+      category: "Databases & DevOps",
+      skills: ["MySQL", "MongoDB", "Git / GitHub", "Docker", "Composer", "Linux CLI"],
     },
   ];
 
   return (
-    <section id="skills">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-4xl text-center lg:text-left mb-16">
-          <h2 className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-foreground">
-            Technical skills
+    <section id="skills" className="py-20 px-6 sm:px-8 lg:px-12 border-t border-border/60">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-2xl mb-12">
+          <span className="text-xs font-semibold tracking-widest text-secondary uppercase">
+            Expertise
+          </span>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            Technical Skills
           </h2>
-          <p className="mt-4 text-lg text-secondary leading-relaxed">
-            Technologies I work with regularly.
+          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
+            Technologies and frameworks I build with regularly in production.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-8">
-          {groups.map((group) => (
-            <div key={group.title} className="space-y-3">
-              <h3
-                className="text-sm font-serif font-semibold text-uppercase tracking-widest text-secondary"
-              >
-                {group.title}
+        <div className="grid md:grid-cols-3 gap-6">
+          {skillCategories.map((group) => (
+            <div
+              key={group.category}
+              className="rounded-2xl border border-border bg-white p-6 sm:p-7 shadow-2xs"
+            >
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-secondary mb-5">
+                {group.category}
               </h3>
-              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                {group.items.map((item) => (
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
                   <span
-                    key={item}
-                    className="border border-border bg-surface rounded-full px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
+                    key={skill}
+                    className="rounded-full border border-border bg-surface/50 px-3 py-1.5 text-xs font-medium text-foreground hover:border-foreground/30 transition-colors"
                   >
-                    {item}
+                    {skill}
                   </span>
                 ))}
               </div>
