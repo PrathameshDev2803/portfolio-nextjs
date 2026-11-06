@@ -31,10 +31,8 @@ export function Skills() {
         "CSS",
         "JavaScript",
         "React",
-        "Next.js",
         "Tailwind CSS",
         "Bootstrap",
-        "TypeScript",
       ],
     },
     {
@@ -60,11 +58,11 @@ export function Skills() {
           <line x1="10" x2="14" y1="17" y2="17" />
         </svg>
       ),
-      skills: ["PHP", "Laravel", "Node.js", "Express.js", "REST APIs"],
+      skills: ["PHP", "Laravel", "Node.js", "REST APIs"],
     },
     {
       title: "Database",
-      description: "Working with relational and NoSQL databases.",
+      description: "Working with relational databases.",
       icon: (
         <svg
           width="20"
@@ -82,7 +80,7 @@ export function Skills() {
           <path d="M3 12a9 3 0 0 0 18 0" />
         </svg>
       ),
-      skills: ["MySQL", "SQL", "MongoDB"],
+      skills: ["MySQL", "SQL"],
     },
     {
       title: "Tools & Others",
@@ -102,16 +100,7 @@ export function Skills() {
           <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
         </svg>
       ),
-      skills: [
-        "Git",
-        "GitHub",
-        "Docker",
-        "Composer",
-        "WordPress",
-        "Shopify",
-        "XAMPP",
-        "WSL",
-      ],
+      skills: ["Git", "GitHub", "XAMPP"],
     },
   ];
 
