@@ -3,8 +3,8 @@
 :root {
   --background: #FAFAF8;
   --foreground: #171717;
-  --secondary: #737373;
-  --muted: #737373;
+  --secondary: #5F5F5F;
+  --muted: #5F5F5F;
   --surface: #EEEEEC;
   --border: #E5E5E3;
   --accent: #E9E7F2;
@@ -28,6 +28,10 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--background);
+}
+
+[id] {
+  scroll-margin-top: 6.5rem;
 }
 
 body {

@@ -149,7 +149,7 @@ export function Navigation() {
     }
     const el = document.getElementById(id);
     if (el) {
-      const headerOffset = 90;
+      const headerOffset = 110;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
