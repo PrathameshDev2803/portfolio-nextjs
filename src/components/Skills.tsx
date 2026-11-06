@@ -220,13 +220,13 @@ export function Skills() {
 
           {/* Right Column: Monochromatic Workspace Illustration */}
           <div className="sm:col-span-4 lg:col-span-5 hidden sm:flex justify-end">
-            <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-[668/340]">
+            <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-[690/350]">
               <Image
                 src="/images/skills-workspace.png"
                 alt="Developer workspace line art illustration"
-                width={668}
-                height={340}
-                className="w-full h-auto object-contain"
+                width={690}
+                height={350}
+                className="w-full h-auto object-contain select-none"
                 priority
               />
             </div>
