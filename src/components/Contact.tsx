@@ -42,7 +42,7 @@ export function Contact() {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:contact@prathameshjadhav.com"
+                  href="mailto:prathameshjadhav2803@gmail.com"
                   className="flex items-center justify-between p-4 rounded-xl border border-border bg-surface/40 hover:bg-surface text-foreground transition-colors group"
                 >
                   <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ export function Contact() {
                     <span className="text-sm font-medium">Email Me</span>
                   </div>
                   <span className="text-xs font-mono text-secondary group-hover:text-foreground">
-                    contact@prathameshjadhav.com &rarr;
+                    prathameshjadhav2803@gmail.com &rarr;
                   </span>
                 </a>
 

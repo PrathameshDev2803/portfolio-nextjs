@@ -13,7 +13,7 @@ export function Hero() {
             {/* Status Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-medium text-foreground/80 shadow-2xs">
               <span className="h-1.5 w-1.5 rounded-full bg-foreground inline-block" />
-              <span>Available for freelance work</span>
+              <span>Open to full-time opportunities</span>
             </div>
 
             {/* Main Name Heading */}
@@ -29,12 +29,15 @@ export function Hero() {
               </span>
             </h2>
 
-            {/* Bio Description */}
+            {/* Descriptions */}
             <p className="mt-5 text-base sm:text-lg text-secondary leading-relaxed max-w-xl">
-              I create beautiful, functional, and user-centered digital
-              experiences. With full stack expertise across PHP, Laravel,
-              React, and Next.js, I bring ideas to life through clean code and
-              thoughtful design.
+              I build functional, responsive and user-focused web applications,
+              working across frontend and backend development.
+            </p>
+            <p className="mt-3 text-base sm:text-lg text-secondary leading-relaxed max-w-xl">
+              My primary focus is PHP, Laravel, JavaScript and React, with an
+              interest in building clean, accessible and maintainable digital
+              experiences.
             </p>
 
             {/* Location & Availability Row */}
@@ -73,22 +76,23 @@ export function Hero() {
                   <rect width="20" height="14" x="2" y="7" rx="2" />
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                 </svg>
-                Available Now
+                Open to full-time opportunities
               </span>
             </div>
 
             {/* Action Buttons Row */}
             <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
               <a
-                href="#contact"
+                href="#projects"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-medium hover:bg-foreground/90 transition-colors shadow-xs"
               >
+                <span>View Projects</span>
                 <span>&rarr;</span>
-                <span>Hire Me</span>
               </a>
 
               <a
-                href="#contact"
+                href="/Prathamesh-Jadhav-CV.pdf"
+                download="Prathamesh-Jadhav-CV.pdf"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white text-foreground px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-medium hover:bg-surface transition-colors shadow-2xs"
               >
                 <svg
@@ -141,31 +145,6 @@ export function Hero() {
                   </svg>
                 </a>
 
-                {/* Discord */}
-                <a
-                  href="https://discord.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-1 text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="Discord"
-                >
-                  <svg
-                    width="19"
-                    height="19"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M18 6h0a14.5 14.5 0 0 0-4-1.25 10.4 10.4 0 0 0-.5 1.25 13.9 13.9 0 0 0-3 0 10.4 10.4 0 0 0-.5-1.25A14.5 14.5 0 0 0 6 6a17.2 17.2 0 0 0-2 11c1.5 1.2 3.2 2 5 2.25.5-.6.9-1.3 1.25-2a9.6 9.6 0 0 1-2-.6c.17-.12.33-.25.5-.38 3.5 1.6 7.5 1.6 11 0 .17.13.33.26.5.38a9.6 9.6 0 0 1-2 .6c.35.7.75 1.4 1.25 2 1.8-.25 3.5-1.05 5-2.25A17.2 17.2 0 0 0 18 6Z" />
-                    <circle cx="9.5" cy="12" r="1" fill="currentColor" />
-                    <circle cx="14.5" cy="12" r="1" fill="currentColor" />
-                  </svg>
-                </a>
-
                 {/* LinkedIn */}
                 <a
                   href="https://linkedin.com/in/prathameshjadhav"
@@ -191,13 +170,11 @@ export function Hero() {
                   </svg>
                 </a>
 
-                {/* Instagram */}
+                {/* Email */}
                 <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:prathameshjadhav2803@gmail.com"
                   className="p-1 text-foreground/80 hover:text-foreground transition-colors"
-                  aria-label="Instagram"
+                  aria-label="Email Prathamesh Jadhav"
                 >
                   <svg
                     width="19"
@@ -210,9 +187,8 @@ export function Hero() {
                     strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                   </svg>
                 </a>
               </div>
