@@ -130,8 +130,8 @@ export function Skills() {
       description: "Building inclusive and usable experiences.",
       icon: (
         <svg
-          width="16"
-          height="16"
+          width="17"
+          height="17"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -150,8 +150,8 @@ export function Skills() {
       description: "Focused on reliability and speed.",
       icon: (
         <svg
-          width="16"
-          height="16"
+          width="17"
+          height="17"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -172,8 +172,8 @@ export function Skills() {
       description: "Writing clean and scalable code.",
       icon: (
         <svg
-          width="16"
-          height="16"
+          width="17"
+          height="17"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -213,7 +213,7 @@ export function Skills() {
             </h2>
 
             {/* Supporting Text */}
-            <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed max-w-xl">
+            <p className="mt-4 text-base sm:text-lg text-secondary leading-[1.65] max-w-xl">
               A practical toolkit I use to build, ship and maintain web applications.
             </p>
           </div>
@@ -233,42 +233,42 @@ export function Skills() {
           </div>
         </div>
 
-        {/* 2 × 2 Categories Grid */}
+        {/* 2 × 2 Categories Grid: Reference Horizontal Split */}
         <div className="mt-12 sm:mt-14 grid md:grid-cols-2 gap-6 lg:gap-8">
           {categories.map((category) => (
             <div
               key={category.title}
-              className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 shadow-2xs hover:border-foreground/30 transition-colors flex flex-col justify-between gap-6"
+              className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/30 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
             >
-              {/* Category Info Header */}
-              <div className="flex items-start gap-3.5">
-                <div
-                  className="mt-0.5 h-9 w-9 rounded-xl bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
-                  aria-hidden="true"
-                >
-                  {category.icon}
-                </div>
-                <div>
+              {/* Category Info Header (Left on desktop) */}
+              <div className="sm:w-[42%] shrink-0">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="h-9 w-9 rounded-xl bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
+                    aria-hidden="true"
+                  >
+                    {category.icon}
+                  </div>
                   <h3 className="text-lg font-bold text-foreground">
                     {category.title}
                   </h3>
-                  <p className="mt-1 text-xs sm:text-sm text-secondary leading-relaxed">
-                    {category.description}
-                  </p>
                 </div>
+                <p className="mt-2 text-sm text-secondary leading-[1.6]">
+                  {category.description}
+                </p>
               </div>
 
-              {/* Technology Pills */}
-              <div className="pt-4 border-t border-border/50 flex flex-wrap gap-2">
+              {/* Technology Pills (Right on desktop) */}
+              <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap sm:justify-end gap-2">
                 {category.skills.map((skill) => {
                   const isPrimary = primaryTechnologies.has(skill);
                   return (
                     <span
                       key={skill}
                       className={[
-                        "rounded-full px-3 py-1 text-xs transition-colors shadow-2xs",
+                        "rounded-full px-3.5 py-1.5 text-[13px] transition-colors shadow-2xs select-none",
                         isPrimary
-                          ? "border border-foreground/30 bg-surface font-semibold text-foreground ring-1 ring-foreground/10 hover:border-foreground/50"
+                          ? "border border-foreground/40 bg-surface font-semibold text-foreground ring-1 ring-foreground/10 hover:border-foreground/60"
                           : "border border-border/80 bg-surface/50 font-medium text-foreground hover:border-foreground/30",
                       ].join(" ")}
                     >
@@ -297,16 +297,16 @@ export function Skills() {
                 ].join(" ")}
               >
                 <div
-                  className="mt-0.5 h-7 w-7 rounded-lg bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
+                  className="mt-0.5 h-8 w-8 rounded-lg bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
                   aria-hidden="true"
                 >
                   {item.icon}
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">
+                  <h4 className="text-base font-bold text-foreground">
                     {item.title}
                   </h4>
-                  <p className="mt-1 text-xs text-secondary leading-relaxed">
+                  <p className="mt-1 text-sm text-secondary leading-[1.6]">
                     {item.description}
                   </p>
                 </div>
