@@ -227,7 +227,7 @@ export function Skills() {
           {categories.map((category) => (
             <div
               key={category.title}
-              className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+              className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 shadow-2xs hover:border-foreground/20 transition-colors flex flex-col sm:flex-row sm:items-start justify-between gap-6"
             >
               {/* Category Info Header (Left on desktop) */}
               <div className="sm:w-[42%] shrink-0">
@@ -245,7 +245,7 @@ export function Skills() {
               </div>
 
               {/* Technology Pills (Right on desktop) */}
-              <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap sm:justify-end gap-2 sm:gap-2.5">
+              <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap gap-2 sm:gap-2.5">
                 {category.skills.map((skill) => {
                   const isPrimary = primaryTechnologies.has(skill);
                   return (
