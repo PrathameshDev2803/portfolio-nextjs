@@ -120,7 +120,7 @@ export function Skills() {
       title: "Full-Stack Development",
       description: "End-to-end web application development.",
       icon: (
-        <span className="font-mono text-xs font-semibold text-foreground select-none">
+        <span className="font-mono text-sm font-bold text-foreground select-none inline-block">
           &lt;/&gt;
         </span>
       ),
@@ -130,12 +130,12 @@ export function Skills() {
       description: "Building inclusive and usable experiences.",
       icon: (
         <svg
-          width="17"
-          height="17"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.75"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
@@ -150,12 +150,12 @@ export function Skills() {
       description: "Focused on reliability and speed.",
       icon: (
         <svg
-          width="17"
-          height="17"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.75"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
@@ -172,12 +172,12 @@ export function Skills() {
       description: "Writing clean and scalable code.",
       icon: (
         <svg
-          width="17"
-          height="17"
+          width="18"
+          height="18"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.75"
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
@@ -219,13 +219,13 @@ export function Skills() {
           </div>
 
           {/* Right Column: Monochromatic Workspace Illustration */}
-          <div className="sm:col-span-4 lg:col-span-5 hidden sm:flex justify-end">
-            <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-[690/350]">
+          <div className="sm:col-span-4 lg:col-span-5 hidden sm:flex justify-end items-center">
+            <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-[1774/887]">
               <Image
                 src="/images/skills-workspace.png"
                 alt="Developer workspace line art illustration"
-                width={690}
-                height={350}
+                width={1774}
+                height={887}
                 className="w-full h-auto object-contain select-none"
                 priority
               />
@@ -238,17 +238,14 @@ export function Skills() {
           {categories.map((category) => (
             <div
               key={category.title}
-              className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/30 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+              className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-6"
             >
               {/* Category Info Header (Left on desktop) */}
               <div className="sm:w-[42%] shrink-0">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="h-9 w-9 rounded-xl bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
-                    aria-hidden="true"
-                  >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-foreground shrink-0" aria-hidden="true">
                     {category.icon}
-                  </div>
+                  </span>
                   <h3 className="text-lg font-bold text-foreground">
                     {category.title}
                   </h3>
@@ -259,17 +256,17 @@ export function Skills() {
               </div>
 
               {/* Technology Pills (Right on desktop) */}
-              <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap sm:justify-end gap-2">
+              <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap sm:justify-end gap-2 sm:gap-2.5">
                 {category.skills.map((skill) => {
                   const isPrimary = primaryTechnologies.has(skill);
                   return (
                     <span
                       key={skill}
                       className={[
-                        "rounded-full px-3.5 py-1.5 text-[13px] transition-colors shadow-2xs select-none",
+                        "rounded-full px-3.5 py-1.5 text-[13px] bg-white transition-all shadow-2xs select-none",
                         isPrimary
-                          ? "border border-foreground/40 bg-surface font-semibold text-foreground ring-1 ring-foreground/10 hover:border-foreground/60"
-                          : "border border-border/80 bg-surface/50 font-medium text-foreground hover:border-foreground/30",
+                          ? "border-[1.5px] border-neutral-900 font-semibold text-neutral-950 shadow-xs"
+                          : "border border-border/80 font-medium text-foreground hover:border-foreground/40",
                       ].join(" ")}
                     >
                       {skill}
@@ -288,7 +285,7 @@ export function Skills() {
               <div
                 key={item.title}
                 className={[
-                  "flex items-start gap-3.5",
+                  "flex items-start gap-3",
                   idx === 0
                     ? "sm:pr-6"
                     : idx === principles.length - 1
@@ -296,17 +293,14 @@ export function Skills() {
                     : "sm:px-6 pt-6 sm:pt-0",
                 ].join(" ")}
               >
-                <div
-                  className="mt-0.5 h-8 w-8 rounded-lg bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground"
-                  aria-hidden="true"
-                >
+                <div className="mt-0.5 text-foreground shrink-0" aria-hidden="true">
                   {item.icon}
                 </div>
                 <div>
-                  <h4 className="text-base font-bold text-foreground">
+                  <h4 className="text-sm sm:text-base font-bold text-foreground">
                     {item.title}
                   </h4>
-                  <p className="mt-1 text-sm text-secondary leading-[1.6]">
+                  <p className="mt-1 text-xs sm:text-sm text-secondary leading-[1.6]">
                     {item.description}
                   </p>
                 </div>
