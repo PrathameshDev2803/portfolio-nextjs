@@ -75,12 +75,12 @@ export function Experience() {
               aria-hidden="true"
             />
 
-            {/* Timeline Marker: Two-layer circular marker matching reference */}
+            {/* Timeline Marker: Proportional two-layer circular marker matching reference */}
             <div
-              className="absolute left-[14px] top-8 -translate-x-1/2 -translate-y-1/2 z-10 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-[#EAE9E6] bg-[#F5F4F1] shadow-sm select-none"
+              className="absolute left-[14px] top-8 -translate-x-1/2 -translate-y-1/2 z-10 flex h-6 w-6 box-border items-center justify-center rounded-full border border-[#EAE9E6] bg-[#F5F4F1] shadow-2xs select-none"
               aria-hidden="true"
             >
-              <span className="h-6 w-6 rounded-full bg-[#171717]" />
+              <span className="h-[11px] w-[11px] rounded-full bg-[#171717]" />
             </div>
 
             {/* Experience Card */}
