@@ -21,6 +21,7 @@
   --color-accent: var(--accent);
   --color-accent-muted: var(--accent-muted);
   --font-sans: var(--font-geist-sans);
+  --font-roboto: var(--font-roboto);
   --font-serif: var(--font-source-serif-4);
   --font-mono: var(--font-geist-mono);
 }

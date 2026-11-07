@@ -82,7 +82,7 @@ export function Experience() {
             />
 
             {/* Experience Card */}
-            <div className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all">
+            <div className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all font-roboto">
               {/* Card Header Row */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 {/* Left: Building icon + Role + Company */}
@@ -116,12 +116,12 @@ export function Experience() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+                    <h3 className="text-[19px] sm:text-[20px] font-bold tracking-normal text-foreground leading-snug">
                       {experience.role}
                     </h3>
-                    <p className="mt-1 text-sm sm:text-[15px] font-semibold text-secondary">
+                    <p className="mt-1 text-sm sm:text-[15px] font-medium text-secondary">
                       <span>{experience.company} · {experience.arrangement}</span>
-                      <span className="ml-2 text-xs sm:text-sm font-normal text-secondary/70">
+                      <span className="ml-2 text-xs sm:text-[13px] font-normal text-secondary/75">
                         ({experience.progression})
                       </span>
                     </p>
