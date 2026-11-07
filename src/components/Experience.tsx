@@ -117,12 +117,12 @@ export function Experience() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground">
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
                       {experience.role}
                     </h3>
-                    <p className="mt-1 text-base font-semibold text-secondary">
-                      {experience.company} · {experience.arrangement}
-                      <span className="text-xs sm:text-[13px] text-secondary/80 ml-2 font-normal">
+                    <p className="mt-1 text-sm sm:text-[15px] font-semibold text-secondary">
+                      <span>{experience.company} · {experience.arrangement}</span>
+                      <span className="ml-2 text-xs sm:text-sm font-normal text-secondary/70">
                         ({experience.progression})
                       </span>
                     </p>
