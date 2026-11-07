@@ -75,11 +75,13 @@ export function Experience() {
               aria-hidden="true"
             />
 
-            {/* Timeline Marker: Sleek solid dot perfectly centered on the spine */}
+            {/* Timeline Marker: Two-layer circular marker matching reference */}
             <div
-              className="absolute left-[7px] top-8 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-neutral-900 ring-4 ring-[#FAFAF8] shadow-2xs"
+              className="absolute left-[14px] top-8 -translate-x-1/2 -translate-y-1/2 z-10 flex h-[50px] w-[50px] items-center justify-center rounded-full border border-[#EAE9E6] bg-[#F5F4F1] shadow-sm select-none"
               aria-hidden="true"
-            />
+            >
+              <span className="h-6 w-6 rounded-full bg-[#171717]" />
+            </div>
 
             {/* Experience Card */}
             <div className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all font-roboto">
