@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SkillPill } from "@/components/ui/SkillPill";
 
 export function About() {
   const primaryStack = ["PHP", "Laravel", "JavaScript", "React"];
@@ -237,12 +238,7 @@ export function About() {
               </span>
               <div className="flex flex-wrap gap-2">
                 {primaryStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-border/80 bg-white px-3 py-1 text-xs font-medium text-foreground hover:border-foreground/30 transition-colors shadow-2xs"
-                  >
-                    {tech}
-                  </span>
+                  <SkillPill key={tech}>{tech}</SkillPill>
                 ))}
               </div>
             </div>

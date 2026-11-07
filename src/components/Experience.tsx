@@ -1,8 +1,7 @@
 import Image from "next/image";
+import { SkillPill } from "@/components/ui/SkillPill";
 
 export function Experience() {
-  const primaryTechnologies = new Set(["PHP", "Laravel", "JavaScript", "React"]);
-
   const experience = {
     role: "Full Stack Developer",
     progression: "Web Developer Intern → Full Stack Developer",
@@ -166,22 +165,9 @@ export function Experience() {
 
               {/* Technology Pills */}
               <div className="mt-5 flex flex-wrap gap-2 sm:gap-2.5">
-                {experience.technologies.map((tech) => {
-                  const isPrimary = primaryTechnologies.has(tech);
-                  return (
-                    <span
-                      key={tech}
-                      className={[
-                        "rounded-full px-3.5 py-1 text-xs sm:text-[13px] bg-white transition-all shadow-2xs select-none",
-                        isPrimary
-                          ? "border-[1.5px] border-neutral-900 font-semibold text-neutral-950 shadow-xs"
-                          : "border border-border/80 font-medium text-foreground hover:border-foreground/40",
-                      ].join(" ")}
-                    >
-                      {tech}
-                    </span>
-                  );
-                })}
+                {experience.technologies.map((tech) => (
+                  <SkillPill key={tech}>{tech}</SkillPill>
+                ))}
               </div>
             </div>
           </div>

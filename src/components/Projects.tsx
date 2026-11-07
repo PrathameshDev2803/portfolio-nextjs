@@ -1,3 +1,5 @@
+import { SkillPill } from "@/components/ui/SkillPill";
+
 const projects = [
   {
     name: "JobScout.ai",
@@ -72,12 +74,7 @@ export function Projects() {
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-surface px-2.5 py-1 text-xs font-medium text-foreground/80"
-                    >
-                      {t}
-                    </span>
+                    <SkillPill key={t}>{t}</SkillPill>
                   ))}
                 </div>
               </div>

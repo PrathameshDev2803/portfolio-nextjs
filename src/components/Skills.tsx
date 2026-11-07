@@ -1,8 +1,7 @@
 import Image from "next/image";
+import { SkillPill } from "@/components/ui/SkillPill";
 
 export function Skills() {
-  const primaryTechnologies = new Set(["PHP", "Laravel", "JavaScript", "React"]);
-
   const categories = [
     {
       title: "Frontend",
@@ -246,22 +245,9 @@ export function Skills() {
 
               {/* Technology Pills (Right on desktop) */}
               <div className="sm:w-[58%] pt-4 sm:pt-0 border-t sm:border-t-0 border-border/50 flex flex-wrap gap-2 sm:gap-2.5">
-                {category.skills.map((skill) => {
-                  const isPrimary = primaryTechnologies.has(skill);
-                  return (
-                    <span
-                      key={skill}
-                      className={[
-                        "rounded-full px-3.5 py-1.5 text-[13px] bg-white transition-all shadow-2xs select-none",
-                        isPrimary
-                          ? "border-[1.5px] border-neutral-900 font-semibold text-neutral-950 shadow-xs"
-                          : "border border-border/80 font-medium text-foreground hover:border-foreground/40",
-                      ].join(" ")}
-                    >
-                      {skill}
-                    </span>
-                  );
-                })}
+                {category.skills.map((skill) => (
+                  <SkillPill key={skill}>{skill}</SkillPill>
+                ))}
               </div>
             </div>
           ))}
