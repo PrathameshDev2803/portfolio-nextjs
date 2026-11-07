@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react";
 
 export function AutoUpdate() {
   const currentVersionRef = useRef<string | null>(null);
+  const isCheckingRef = useRef(false);
 
   useEffect(() => {
     let isMounted = true;
+    let activeUntil = Date.now() + 120000; // Fast-poll for first 2 minutes
 
     // Helper to clear browser caches and trigger a hard reload
     const triggerHardReload = async () => {
@@ -23,16 +25,31 @@ export function AutoUpdate() {
 
     // Check if a new deployment has been published
     const checkVersion = async () => {
+      if (!isMounted || isCheckingRef.current) return;
+      isCheckingRef.current = true;
+
       try {
-        const response = await fetch(`/version.json?t=${Date.now()}`, {
+        // Primary: Dynamic zero-cache API route; Fallback: static version.json
+        const now = Date.now();
+        let response = await fetch(`/api/version?t=${now}`, {
           cache: "no-store",
           headers: {
-            "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
             Pragma: "no-cache",
           },
-        });
+        }).catch(() => null);
 
-        if (!response.ok) return;
+        if (!response || !response.ok) {
+          response = await fetch(`/version.json?t=${now}`, {
+            cache: "no-store",
+            headers: {
+              "Cache-Control": "no-cache, no-store, must-revalidate",
+              Pragma: "no-cache",
+            },
+          }).catch(() => null);
+        }
+
+        if (!response || !response.ok) return;
 
         const data = await response.json();
         const serverVersion = data?.version;
@@ -48,27 +65,42 @@ export function AutoUpdate() {
         }
       } catch {
         // Network/offline catch
+      } finally {
+        isCheckingRef.current = false;
       }
     };
 
-    // Initial check
+    // Initial check on mount
     checkVersion();
 
-    // Check when user returns to this tab
-    const handleVisibilityChange = () => {
+    // Trigger immediate check when returning to window or tab
+    const handleActivity = () => {
+      activeUntil = Date.now() + 120000;
       if (document.visibilityState === "visible") {
         checkVersion();
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleActivity);
+    document.addEventListener("visibilitychange", handleActivity);
 
-    // Periodic check every 60 seconds when tab is active
-    const interval = setInterval(() => {
-      if (document.visibilityState === "visible") {
-        checkVersion();
-      }
-    }, 60000);
+    // Adaptive periodic polling: 5s when recently active, 20s when idle
+    let pollTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const scheduleNextPoll = () => {
+      if (!isMounted) return;
+      const isRecentlyActive = Date.now() < activeUntil;
+      const delay = isRecentlyActive ? 5000 : 20000;
+
+      pollTimeout = setTimeout(() => {
+        if (document.visibilityState === "visible") {
+          checkVersion();
+        }
+        scheduleNextPoll();
+      }, delay);
+    };
+
+    scheduleNextPoll();
 
     // Catch stale Next.js chunk errors after a deployment and auto-reload
     const handleChunkError = (e: ErrorEvent) => {
@@ -82,12 +114,12 @@ export function AutoUpdate() {
 
     return () => {
       isMounted = false;
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      clearInterval(interval);
+      if (pollTimeout) clearTimeout(pollTimeout);
+      window.removeEventListener("focus", handleActivity);
+      document.removeEventListener("visibilitychange", handleActivity);
       window.removeEventListener("error", handleChunkError);
     };
   }, []);
 
   return null;
 }
-
