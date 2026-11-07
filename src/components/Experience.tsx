@@ -70,28 +70,26 @@ export function Experience() {
         <div className="mt-14 sm:mt-16 relative">
           {/* Continuous Vertical Timeline Spine */}
           <div
-            className="absolute left-[11px] sm:left-[13px] top-6 bottom-6 w-[2px] bg-border/70"
+            className="absolute left-[11px] sm:left-[13px] top-6 -bottom-8 w-[1.5px] bg-gradient-to-b from-border via-border/70 to-transparent"
             aria-hidden="true"
           />
 
           {/* Timeline Entry */}
           <div className="relative pl-8 sm:pl-10">
-            {/* Timeline Marker: Active node with outer ring & solid dot */}
+            {/* Timeline Marker: Sleek solid dot matching reference */}
             <div
-              className="absolute left-0 top-6 -translate-y-1/2 h-6 w-6 rounded-full border-2 border-foreground bg-white flex items-center justify-center shadow-2xs"
+              className="absolute left-[4px] sm:left-[6px] top-8 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-neutral-900 ring-4 ring-[#FAFAF8] shadow-2xs"
               aria-hidden="true"
-            >
-              <span className="h-2 w-2 rounded-full bg-foreground" />
-            </div>
+            />
 
             {/* Experience Card */}
             <div className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all">
               {/* Card Header Row */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-border/50">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 {/* Left: Building icon + Role + Company */}
                 <div className="flex items-start gap-3.5">
                   <div
-                    className="h-10 w-10 rounded-xl bg-white border border-border/80 flex items-center justify-center shrink-0 text-foreground shadow-2xs mt-0.5"
+                    className="h-10 w-10 rounded-xl bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground shadow-2xs mt-0.5"
                     aria-hidden="true"
                   >
                     <svg
@@ -119,29 +117,27 @@ export function Experience() {
                   </div>
 
                   <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-lg sm:text-xl font-bold text-foreground">
-                        {experience.role}
-                      </h3>
-                      <span className="inline-flex items-center rounded-md bg-surface px-2.5 py-0.5 text-xs font-medium text-secondary border border-border/60">
-                        {experience.progression}
-                      </span>
-                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                      {experience.role}
+                    </h3>
                     <p className="mt-1 text-sm font-medium text-secondary">
                       {experience.company} · {experience.arrangement}
+                      <span className="text-xs text-secondary/80 ml-2 font-normal">
+                        ({experience.progression})
+                      </span>
                     </p>
                   </div>
                 </div>
 
-                {/* Right: Current badge + Date */}
-                <div className="flex items-center sm:flex-col sm:items-end gap-2.5 sm:gap-2 shrink-0">
+                {/* Right: Current badge + Date (Side-by-side horizontally on Desktop) */}
+                <div className="flex items-center gap-3 divide-x divide-border/60 shrink-0 self-start sm:self-auto">
                   {experience.isCurrent && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-white px-2.5 py-0.5 text-xs font-semibold text-foreground shadow-2xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-white px-2.5 py-0.5 text-xs font-semibold text-foreground shadow-2xs select-none">
                       <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
                       Current
                     </span>
                   )}
-                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-secondary">
+                  <div className="pl-3 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-secondary">
                     <svg
                       width="14"
                       height="14"
@@ -163,20 +159,20 @@ export function Experience() {
                 </div>
               </div>
 
-              {/* Description */}
-              <p className="mt-4 text-sm sm:text-base text-secondary leading-relaxed">
+              {/* Description (Seamless vertical flow) */}
+              <p className="mt-3.5 text-sm sm:text-base text-secondary leading-relaxed">
                 {experience.description}
               </p>
 
               {/* Technology Pills */}
-              <div className="mt-6 flex flex-wrap gap-2 sm:gap-2.5">
+              <div className="mt-5 flex flex-wrap gap-2 sm:gap-2.5">
                 {experience.technologies.map((tech) => {
                   const isPrimary = primaryTechnologies.has(tech);
                   return (
                     <span
                       key={tech}
                       className={[
-                        "rounded-full px-3.5 py-1.5 text-[13px] bg-white transition-all shadow-2xs select-none",
+                        "rounded-full px-3.5 py-1 text-xs sm:text-[13px] bg-white transition-all shadow-2xs select-none",
                         isPrimary
                           ? "border-[1.5px] border-neutral-900 font-semibold text-neutral-950 shadow-xs"
                           : "border border-border/80 font-medium text-foreground hover:border-foreground/40",
