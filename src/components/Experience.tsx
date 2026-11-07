@@ -68,28 +68,28 @@ export function Experience() {
 
         {/* Timeline Container */}
         <div className="mt-14 sm:mt-16 relative">
-          {/* Continuous Vertical Timeline Spine */}
-          <div
-            className="absolute left-[11px] sm:left-[13px] top-6 -bottom-8 w-[1.5px] bg-gradient-to-b from-border via-border/70 to-transparent"
-            aria-hidden="true"
-          />
-
           {/* Timeline Entry */}
-          <div className="relative pl-8 sm:pl-10">
-            {/* Timeline Marker: Sleek solid dot matching reference */}
+          <div className="relative pl-9 sm:pl-11">
+            {/* Continuous Vertical Timeline Spine: Crisp solid line */}
             <div
-              className="absolute left-[4px] sm:left-[6px] top-8 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-neutral-900 ring-4 ring-[#FAFAF8] shadow-2xs"
+              className="absolute left-[13px] top-4 -bottom-6 w-[2px] bg-border"
+              aria-hidden="true"
+            />
+
+            {/* Timeline Marker: Sleek solid dot perfectly centered on the spine */}
+            <div
+              className="absolute left-[7px] top-8 -translate-y-1/2 h-3.5 w-3.5 rounded-full bg-neutral-900 ring-4 ring-[#FAFAF8] shadow-2xs"
               aria-hidden="true"
             />
 
             {/* Experience Card */}
-            <div className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all">
+            <div className="rounded-2xl border border-border/80 bg-white p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all">
               {/* Card Header Row */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 {/* Left: Building icon + Role + Company */}
                 <div className="flex items-start gap-3.5">
                   <div
-                    className="h-10 w-10 rounded-xl bg-surface/80 border border-border/60 flex items-center justify-center shrink-0 text-foreground shadow-2xs mt-0.5"
+                    className="h-10 w-10 rounded-xl bg-surface/60 border border-border/60 flex items-center justify-center shrink-0 text-foreground shadow-2xs mt-0.5"
                     aria-hidden="true"
                   >
                     <svg
@@ -117,12 +117,12 @@ export function Experience() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                    <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-foreground">
                       {experience.role}
                     </h3>
-                    <p className="mt-1 text-sm font-medium text-secondary">
+                    <p className="mt-1 text-base font-semibold text-secondary">
                       {experience.company} · {experience.arrangement}
-                      <span className="text-xs text-secondary/80 ml-2 font-normal">
+                      <span className="text-xs sm:text-[13px] text-secondary/80 ml-2 font-normal">
                         ({experience.progression})
                       </span>
                     </p>
