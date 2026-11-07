@@ -131,14 +131,20 @@ export function Experience() {
                 </div>
 
                 {/* Right: Current badge + Date (Side-by-side horizontally on Desktop) */}
-                <div className="flex items-center gap-3 divide-x divide-border/60 shrink-0 self-start sm:self-auto">
+                <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-3.5 shrink-0 self-start sm:self-auto">
                   {experience.isCurrent && (
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-[#F5F4F1] px-2.5 py-0.5 text-xs font-semibold text-foreground shadow-2xs select-none">
                       <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
                       Current
                     </span>
                   )}
-                  <div className="pl-3 flex items-center gap-1.5 text-xs sm:text-sm font-medium text-secondary">
+                  {experience.isCurrent && (
+                    <span
+                      className="hidden sm:block h-11 w-px bg-[#E5E5E5] shrink-0"
+                      aria-hidden="true"
+                    />
+                  )}
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-secondary">
                     <svg
                       width="14"
                       height="14"
