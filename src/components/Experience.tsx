@@ -1,61 +1,194 @@
+import Image from "next/image";
+
 export function Experience() {
-  const experiences = [
-    {
-      role: "Full Stack Developer",
-      company: "Independent / Freelance",
-      period: "2023 — Present",
-      location: "Mumbai, India",
-      description:
-        "Architecting and shipping responsive web apps, REST APIs, and client platforms using PHP, Laravel, React, and Next.js.",
-    },
-    {
-      role: "Web Development Specialist",
-      company: "Client Projects",
-      period: "2022 — 2023",
-      location: "Mumbai, India",
-      description:
-        "Developed full-featured business management applications, database schemas, and tailored frontend experiences.",
-    },
-  ];
+  const primaryTechnologies = new Set(["PHP", "Laravel", "JavaScript", "React"]);
+
+  const experience = {
+    role: "Full Stack Developer",
+    progression: "Web Developer Intern → Full Stack Developer",
+    company: "Traction Shastra",
+    arrangement: "Remote",
+    period: "Nov 2025 — Present",
+    isCurrent: true,
+    description:
+      "Contributed to web development projects across frontend and backend functionality, working on responsive interfaces, application features, database schemas, and website performance improvements.",
+    technologies: [
+      "PHP",
+      "Laravel",
+      "JavaScript",
+      "React",
+      "HTML",
+      "CSS",
+      "MySQL",
+    ],
+  };
 
   return (
-    <section id="experience" className="py-20 px-6 sm:px-8 lg:px-12 border-t border-border/60">
+    <section
+      id="experience"
+      className="scroll-mt-28 relative py-20 sm:py-28 px-6 sm:px-8 lg:px-12 border-t border-border/60"
+    >
       <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl mb-12">
-          <span className="text-xs font-semibold tracking-widest text-secondary uppercase">
-            Trajectory
-          </span>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Experience
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed">
-            Professional background and development roles.
-          </p>
+        {/* Section Header: Two-Column Layout */}
+        <div className="grid sm:grid-cols-12 gap-8 items-center">
+          <div className="sm:col-span-8 lg:col-span-7">
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-xs font-semibold tracking-widest text-secondary uppercase">
+                EXPERIENCE
+              </span>
+              <span className="h-[1px] w-12 bg-border" aria-hidden="true" />
+            </div>
+
+            {/* Headline */}
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-serif font-semibold tracking-tight text-foreground leading-[1.2]">
+              My Professional Journey
+            </h2>
+
+            {/* Supporting Text */}
+            <p className="mt-4 text-base sm:text-lg text-secondary leading-[1.65] max-w-xl">
+              A look at my professional experience and the work I&apos;ve contributed to.
+            </p>
+          </div>
+
+          {/* Right Column: Monochromatic Desk Calendar & Coffee Illustration */}
+          <div className="sm:col-span-4 lg:col-span-5 hidden sm:flex justify-end items-center">
+            <div className="relative w-full max-w-[280px] lg:max-w-[320px] aspect-[660/260]">
+              <Image
+                src="/images/experience-illustration.png"
+                alt="Calendar with code symbol, books and coffee line art illustration"
+                width={660}
+                height={260}
+                className="w-full h-auto object-contain select-none"
+                priority
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="max-w-3xl space-y-8">
-          {experiences.map((exp) => (
+        {/* Timeline Container */}
+        <div className="mt-14 sm:mt-16 relative">
+          {/* Continuous Vertical Timeline Spine */}
+          <div
+            className="absolute left-[11px] sm:left-[13px] top-6 bottom-6 w-[2px] bg-border/70"
+            aria-hidden="true"
+          />
+
+          {/* Timeline Entry */}
+          <div className="relative pl-8 sm:pl-10">
+            {/* Timeline Marker: Active node with outer ring & solid dot */}
             <div
-              key={`${exp.role}-${exp.company}`}
-              className="relative pl-6 border-l-2 border-border"
+              className="absolute left-0 top-6 -translate-y-1/2 h-6 w-6 rounded-full border-2 border-foreground bg-white flex items-center justify-center shadow-2xs"
+              aria-hidden="true"
             >
-              <div className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-foreground" />
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-lg font-bold text-foreground">
-                  {exp.role}
-                </h3>
-                <span className="text-xs font-medium text-secondary">
-                  {exp.period}
-                </span>
-              </div>
-              <p className="text-sm font-medium text-secondary mt-0.5">
-                {exp.company} · {exp.location}
-              </p>
-              <p className="mt-3 text-sm text-secondary leading-relaxed">
-                {exp.description}
-              </p>
+              <span className="h-2 w-2 rounded-full bg-foreground" />
             </div>
-          ))}
+
+            {/* Experience Card */}
+            <div className="rounded-2xl border border-border/80 bg-surface/40 hover:bg-surface/60 p-6 sm:p-7 lg:p-8 shadow-2xs hover:border-foreground/20 transition-all">
+              {/* Card Header Row */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-border/50">
+                {/* Left: Building icon + Role + Company */}
+                <div className="flex items-start gap-3.5">
+                  <div
+                    className="h-10 w-10 rounded-xl bg-white border border-border/80 flex items-center justify-center shrink-0 text-foreground shadow-2xs mt-0.5"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect width="16" height="20" x="4" y="2" rx="2" ry="2" />
+                      <path d="M9 22v-4h6v4" />
+                      <path d="M8 6h.01" />
+                      <path d="M16 6h.01" />
+                      <path d="M12 6h.01" />
+                      <path d="M12 10h.01" />
+                      <path d="M12 14h.01" />
+                      <path d="M16 10h.01" />
+                      <path d="M16 14h.01" />
+                      <path d="M8 10h.01" />
+                      <path d="M8 14h.01" />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                        {experience.role}
+                      </h3>
+                      <span className="inline-flex items-center rounded-md bg-surface px-2.5 py-0.5 text-xs font-medium text-secondary border border-border/60">
+                        {experience.progression}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm font-medium text-secondary">
+                      {experience.company} · {experience.arrangement}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Right: Current badge + Date */}
+                <div className="flex items-center sm:flex-col sm:items-end gap-2.5 sm:gap-2 shrink-0">
+                  {experience.isCurrent && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-white px-2.5 py-0.5 text-xs font-semibold text-foreground shadow-2xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
+                      Current
+                    </span>
+                  )}
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-secondary">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                      <line x1="16" x2="16" y1="2" y2="6" />
+                      <line x1="8" x2="8" y1="2" y2="6" />
+                      <line x1="3" x2="21" y1="10" y2="10" />
+                    </svg>
+                    <span>{experience.period}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="mt-4 text-sm sm:text-base text-secondary leading-relaxed">
+                {experience.description}
+              </p>
+
+              {/* Technology Pills */}
+              <div className="mt-6 flex flex-wrap gap-2 sm:gap-2.5">
+                {experience.technologies.map((tech) => {
+                  const isPrimary = primaryTechnologies.has(tech);
+                  return (
+                    <span
+                      key={tech}
+                      className={[
+                        "rounded-full px-3.5 py-1.5 text-[13px] bg-white transition-all shadow-2xs select-none",
+                        isPrimary
+                          ? "border-[1.5px] border-neutral-900 font-semibold text-neutral-950 shadow-xs"
+                          : "border border-border/80 font-medium text-foreground hover:border-foreground/40",
+                      ].join(" ")}
+                    >
+                      {tech}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
