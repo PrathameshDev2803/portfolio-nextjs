@@ -37,15 +37,6 @@ const projects: Project[] = [
     image: "/images/project-expensetracker.png",
     link: "https://github.com/PrathameshDev2803",
   },
-  {
-    title: "Motionis.health",
-    category: "CLIENT WORK",
-    description:
-      "A pain management clinic website focused on accessibility, usability and performance, with WCAG 2.2 AA considerations.",
-    technologies: ["PHP", "JavaScript", "WCAG 2.2 AA"],
-    image: "/images/project-motionis.png",
-    link: "https://motionis.health",
-  },
 ];
 
 export function Projects() {
@@ -93,7 +84,7 @@ export function Projects() {
           </div>
         </div>
 
-        {/* Featured Projects Grid: 2x2 desktop grid */}
+        {/* Featured Projects Grid */}
         <div className="mt-14 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project) => (
             <article
