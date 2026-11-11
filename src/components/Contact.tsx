@@ -2,6 +2,8 @@
 
 import React, { useState, useId } from "react";
 import Image from "next/image";
+import { ALLOWED_SUBJECTS, validateEmail } from "@/lib/validation";
+import { useToast } from "@/components/ui/Toast";
 
 interface FormState {
   name: string;
@@ -18,16 +20,9 @@ interface FormErrors {
   message?: string;
 }
 
-const SUBJECT_OPTIONS = [
-  "Job Opportunity",
-  "Freelance Project",
-  "Website Development",
-  "Collaboration",
-  "General Enquiry",
-  "Other",
-] as const;
-
 export function Contact() {
+  const { showToast } = useToast();
+
   const nameId = useId();
   const emailId = useId();
   const subjectId = useId();
@@ -46,12 +41,14 @@ export function Contact() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">(
     "idle"
   );
-  const [statusMessage, setStatusMessage] = useState<string>("");
 
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL;
 
-  const validateField = (name: keyof FormState, value: string): string | undefined => {
-    switch (name) {
+  const validateField = (
+    fieldName: keyof FormState,
+    value: string
+  ): string | undefined => {
+    switch (fieldName) {
       case "name": {
         const trimmed = value.trim();
         if (!trimmed) return "Please enter your name.";
@@ -62,22 +59,23 @@ export function Contact() {
       case "email": {
         const trimmed = value.trim();
         if (!trimmed) return "Please enter your email address.";
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(trimmed)) return "Please enter a valid email address.";
+        if (!validateEmail(trimmed)) {
+          return "Please enter a valid email address (e.g. name@example.com).";
+        }
         return undefined;
       }
       case "subject": {
-        if (!value) return "Please select a subject.";
-        if (!SUBJECT_OPTIONS.includes(value as (typeof SUBJECT_OPTIONS)[number])) {
-          return "Please select a valid subject.";
+        if (!value || !value.trim()) return "Please select a subject.";
+        if (!ALLOWED_SUBJECTS.includes(value as (typeof ALLOWED_SUBJECTS)[number])) {
+          return "Please select a valid subject from the list.";
         }
         return undefined;
       }
       case "message": {
-        const trimmed = value.trim();
-        if (!trimmed) return "Please enter your message.";
-        if (trimmed.length < 10) return "Message must be at least 10 characters.";
-        if (trimmed.length > 3000) return "Message must be under 3,000 characters.";
+        // Message is optional, max 2,000 characters
+        if (value.length > 2000) {
+          return "Message cannot exceed 2,000 characters.";
+        }
         return undefined;
       }
       default:
@@ -91,9 +89,15 @@ export function Contact() {
     >
   ) => {
     const { name, value } = e.target;
+
+    // Reset success state when user starts typing again
+    if (submitStatus === "success") {
+      setSubmitStatus("idle");
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear error for field on change if it exists
+    // Clear inline error on change if present
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -114,7 +118,7 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate all fields
+    // 1. Client-Side Validation
     const newErrors: FormErrors = {};
     const nameErr = validateField("name", formData.name);
     if (nameErr) newErrors.name = nameErr;
@@ -130,6 +134,14 @@ export function Contact() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+
+      // Trigger validation toast
+      showToast({
+        type: "validation",
+        title: "Check your details",
+        description: "Please correct the highlighted fields before submitting.",
+      });
+
       // Focus the first invalid field
       const firstField = Object.keys(newErrors)[0];
       const el = document.querySelector<HTMLElement>(`[name="${firstField}"]`);
@@ -139,7 +151,15 @@ export function Contact() {
 
     setIsSubmitting(true);
     setSubmitStatus("idle");
-    setStatusMessage("");
+
+    // Cleaned payload: trim email and name
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+      website: formData.website,
+    };
 
     try {
       const response = await fetch("/api/contact", {
@@ -147,17 +167,22 @@ export function Contact() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json().catch(() => ({}));
 
       if (response.ok && data.success) {
         setSubmitStatus("success");
-        setStatusMessage(
-          "Thank you for reaching out! Your message has been sent successfully. I'll get back to you soon."
-        );
-        // Clear form only on confirmed success
+
+        // Trigger Success Toast
+        showToast({
+          type: "success",
+          title: "Message sent successfully",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+
+        // Reset the form only after confirmed successful delivery
         setFormData({
           name: "",
           email: "",
@@ -166,22 +191,40 @@ export function Contact() {
           website: "",
         });
         setErrors({});
+
+        // Restore button state after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus((current) => (current === "success" ? "idle" : current));
+        }, 5000);
       } else {
         setSubmitStatus("error");
-        setStatusMessage(
-          data.error ||
-            "Something went wrong while sending your message. Please try again or contact me directly by email."
-        );
+
+        // Trigger Error Toast (preserve entered form values)
+        showToast({
+          type: "error",
+          title: "Unable to send message",
+          description:
+            data.error ||
+            "Something went wrong. Please try again or email me directly.",
+        });
       }
     } catch {
       setSubmitStatus("error");
-      setStatusMessage(
-        "Something went wrong while sending your message. Please try again or contact me directly by email."
-      );
+
+      // Trigger Error Toast on network/connection failure
+      showToast({
+        type: "error",
+        title: "Unable to send message",
+        description:
+          "Something went wrong. Please try again or email me directly.",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const messageLength = formData.message.length;
+  const isNearLimit = messageLength >= 1900;
 
   return (
     <section
@@ -312,73 +355,6 @@ export function Contact() {
                 possible.
               </p>
 
-              {/* Status Announcements */}
-              {submitStatus === "success" && (
-                <div
-                  role="alert"
-                  aria-live="polite"
-                  className="mt-6 rounded-2xl border border-green-200 bg-green-50/70 p-4 sm:p-5 text-sm text-green-900"
-                >
-                  <div className="flex items-start gap-3">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0 text-green-700 mt-0.5"
-                      aria-hidden="true"
-                    >
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    <div className="flex-1">
-                      <p className="font-medium">{statusMessage}</p>
-                      <button
-                        type="button"
-                        onClick={() => setSubmitStatus("idle")}
-                        className="mt-3 inline-flex items-center text-xs font-semibold text-green-800 underline hover:text-green-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-700 rounded-xs"
-                      >
-                        Send another message
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div
-                  role="alert"
-                  aria-live="assertive"
-                  className="mt-6 rounded-2xl border border-red-200 bg-red-50/70 p-4 sm:p-5 text-sm text-red-900"
-                >
-                  <div className="flex items-start gap-3">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0 text-red-700 mt-0.5"
-                      aria-hidden="true"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="8" x2="12" y2="12" />
-                      <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    <div className="flex-1">
-                      <p className="font-medium">{statusMessage}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Form Element */}
               <form onSubmit={handleSubmit} noValidate className="mt-6 sm:mt-8 space-y-5">
                 {/* Honeypot field for bot protection */}
@@ -395,7 +371,7 @@ export function Contact() {
 
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                  {/* Field 1 — Name */}
+                  {/* Field 1 — Name (Required) */}
                   <div className="flex flex-col">
                     <label
                       htmlFor={nameId}
@@ -432,7 +408,7 @@ export function Contact() {
                     )}
                   </div>
 
-                  {/* Field 2 — Email */}
+                  {/* Field 2 — Email (Required) */}
                   <div className="flex flex-col">
                     <label
                       htmlFor={emailId}
@@ -470,7 +446,7 @@ export function Contact() {
                   </div>
                 </div>
 
-                {/* Field 3 — Subject Select */}
+                {/* Field 3 — Subject Select (Required) */}
                 <div className="flex flex-col">
                   <label
                     htmlFor={subjectId}
@@ -504,7 +480,7 @@ export function Contact() {
                       <option value="" disabled>
                         Select a subject
                       </option>
-                      {SUBJECT_OPTIONS.map((option) => (
+                      {ALLOWED_SUBJECTS.map((option) => (
                         <option
                           key={option}
                           value={option}
@@ -543,19 +519,24 @@ export function Contact() {
                   )}
                 </div>
 
-                {/* Field 4 — Message Textarea */}
+                {/* Field 4 — Message Textarea (Optional) */}
                 <div className="flex flex-col">
-                  <label
-                    htmlFor={messageId}
-                    className="text-xs font-medium text-foreground mb-1.5"
-                  >
-                    Message <span className="text-secondary">*</span>
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label
+                      htmlFor={messageId}
+                      className="text-xs font-medium text-foreground"
+                    >
+                      Message{" "}
+                      <span className="text-secondary font-normal">
+                        (Optional)
+                      </span>
+                    </label>
+                  </div>
                   <textarea
                     id={messageId}
                     name="message"
-                    required
                     rows={4}
+                    maxLength={2000}
                     placeholder="Tell me about your project, opportunity or query..."
                     value={formData.message}
                     onChange={handleChange}
@@ -571,24 +552,44 @@ export function Contact() {
                         : "border-border hover:border-foreground/30 focus:border-foreground focus:ring-foreground"
                     } disabled:opacity-60 disabled:cursor-not-allowed`}
                   />
-                  {errors.message && (
-                    <p
-                      id={`${messageId}-error`}
-                      className="mt-1 text-xs text-red-600"
-                      role="alert"
+
+                  {/* Character Counter & Inline Error */}
+                  <div className="mt-1.5 flex items-center justify-between text-xs">
+                    <div>
+                      {errors.message && (
+                        <p
+                          id={`${messageId}-error`}
+                          className="text-red-600"
+                          role="alert"
+                        >
+                          {errors.message}
+                        </p>
+                      )}
+                    </div>
+                    <span
+                      className={`tabular-nums ml-auto ${
+                        isNearLimit
+                          ? "text-foreground font-medium"
+                          : "text-secondary"
+                      }`}
+                      aria-live="polite"
                     >
-                      {errors.message}
-                    </p>
-                  )}
+                      {messageLength.toLocaleString()} / 2,000
+                    </span>
+                  </div>
                 </div>
 
                 {/* CTA Action Buttons */}
                 <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                  {/* Primary CTA — Send Message */}
+                  {/* Primary CTA Button */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3 text-sm font-medium hover:bg-foreground/90 transition-all duration-200 shadow-xs disabled:opacity-70 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2"
+                    disabled={isSubmitting || submitStatus === "success"}
+                    className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 ${
+                      submitStatus === "success"
+                        ? "bg-foreground text-background cursor-default opacity-90"
+                        : "bg-foreground text-background hover:bg-foreground/90 disabled:opacity-70 disabled:cursor-not-allowed"
+                    }`}
                   >
                     {isSubmitting ? (
                       <>
@@ -614,6 +615,23 @@ export function Contact() {
                           />
                         </svg>
                         <span>Sending...</span>
+                      </>
+                    ) : submitStatus === "success" ? (
+                      <>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span>Message Sent</span>
                       </>
                     ) : (
                       <>
